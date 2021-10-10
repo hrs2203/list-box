@@ -1,11 +1,11 @@
 import './App.css'
-import { Elem } from './Elem.jsx'
+import { HomePage } from './HomePage.jsx'
 
 function App() {
   return (
     <div className="App">
-      <div className="container">
-        < Elem />
+      <div className="m-3 p-1">
+        < HomePage />
       </div>
     </div>
   );
