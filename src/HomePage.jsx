@@ -1,87 +1,34 @@
-import { React } from "react";
 import { useState } from "react";
 import { downloadFile } from "./save_file";
-import { TextElement, CounterElement, DropdownElement, DateElement, CheckElement } from "./IndividualElem.jsx";
+import {
+    TextElement,
+    CounterElement,
+    DropdownElement,
+    DateElement,
+    CheckElement,
+    TextEditor,
+    DropdownEditor,
+    CheckEditor
+} from "./IndividualElem.jsx";
 
-
-const TextEditor = ({save_action, flip, oldval}) => {
-
-    const [formval, setformval] = useState("default")
-
-    const clickfxn = () => {
-        oldval["title"] = formval
-        console.log(oldval);
-        save_action(oldval);
-        flip(true)
-    }
-
-    return (
-        <div className="card m-2">
-            <div className="card-body">
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
-                    <div class="col-sm-8">
-                        <input
-                            onChange={(ev) => setformval(ev.target.value)}
-                            type="text"
-                            class="form-control"
-                            id="inputtext"
-                            placeholder="new title" />
-                    </div>
-                    <button onClick={clickfxn} className="btn btn-success">Save</button>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-const DropdownEditor = () => {
-    return (
-        <div className="card m-2">
-            <div className="card-body">
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputtext" placeholder="text" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-const CheckEditor = () => {
-    return (
-        <div className="card m-2">
-            <div className="card-body">
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">title</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputtext" placeholder="new title" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
 
 const ElemCreator = ({ elem, del_event, edit_event }) => {
     const [sw, setSw] = useState(true);
 
     const split = {
-        "text": <TextElement title={elem["title"]} placeholder={elem["placeholder"]} id={elem["id"]}  />,
+        "text": <TextElement title={elem["title"]} placeholder={elem["placeholder"]} id={elem["id"]} />,
         "counter": <CounterElement title={elem["title"]} placeholder={elem["placeholder"]} id={elem["id"]} />,
-        "drop": <DropdownElement id={elem["id"]} title={elem["title"]} choices={elem["choices"]} />,
+        "drop": <DropdownElement id={elem["id"]} title={elem["title"]} choices={elem["options"]} />,
         "date": <DateElement title={elem["title"]} id={elem["id"]} />,
         "check": <CheckElement id={elem["id"]} title={elem["title"]} value={elem["value"]} />,
     };
 
     const edit_table = {
-        "text": <TextEditor flip={setSw} save_action={edit_event} oldval={elem}/>,
-        "counter": <TextEditor flip={setSw} save_action={edit_event} oldval={elem}/>,
-        "drop": <DropdownEditor />,
-        "date": <TextEditor flip={setSw} save_action={edit_event} oldval={elem}/>,
-        "check": <CheckEditor />,
+        "text": <TextEditor flip={setSw} save_action={edit_event} oldval={elem} />,
+        "counter": <TextEditor flip={setSw} save_action={edit_event} oldval={elem} />,
+        "drop": <DropdownEditor flip={setSw} save_action={edit_event} oldval={elem} />,
+        "date": <TextEditor flip={setSw} save_action={edit_event} oldval={elem} />,
+        "check": <CheckEditor flip={setSw} save_action={edit_event} oldval={elem} />,
     };
 
     return (
