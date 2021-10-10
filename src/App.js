@@ -1,6 +1,7 @@
 import './App.css'
 import { HomePage } from './HomePage.jsx'
 
+// home
 function App() {
   return (
     <div className="App">
