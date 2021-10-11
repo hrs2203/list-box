@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { downloadFile } from "./save_file";
 import {
     TextElement,
@@ -74,6 +74,23 @@ export const HomePage = () => {
     const [elem_list, setElem_list] = useState([]);
     const [count, setCount] = useState(0);
 
+    useEffect(() => {
+        const raw_data = localStorage.getItem("data")
+        const data = JSON.parse(raw_data)
+        setElem_list(data["elem_list"])
+        setCount(data["count"])
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem(
+            "data",
+            JSON.stringify({
+                "elem_list": elem_list,
+                "count": count
+            }))
+    })
+
+
     const add_elem = (typ) => {
         setCount(count + 1);
         setElem_list([...elem_list, {
@@ -103,22 +120,22 @@ export const HomePage = () => {
         let indx = -1;
         for (let ind = 0; ind < elem_list.length; ind++) {
             const element = elem_list[ind];
-            if (element["id"] === id){
+            if (element["id"] === id) {
                 indx = ind;
                 break
             }
         }
-        let elem_copy = elem_list.map(item =>item);
-        if ((d===-1) && (indx>0)){
+        let elem_copy = elem_list.map(item => item);
+        if ((d === -1) && (indx > 0)) {
             const x = elem_copy[indx]
-            elem_copy[indx] = elem_copy[indx-1];
-            elem_copy[indx-1] = x;
+            elem_copy[indx] = elem_copy[indx - 1];
+            elem_copy[indx - 1] = x;
             setElem_list(elem_copy)
         }
-        if ((d===1) && (indx<elem_copy.length-1)){
+        if ((d === 1) && (indx < elem_copy.length - 1)) {
             const x = elem_copy[indx]
-            elem_copy[indx] = elem_copy[indx+1];
-            elem_copy[indx+1] = x;
+            elem_copy[indx] = elem_copy[indx + 1];
+            elem_copy[indx + 1] = x;
             setElem_list(elem_copy)
         }
 
