@@ -89,7 +89,8 @@ export const TextEditor = ({ save_action, flip, oldval }) => {
                             type="text"
                             class="form-control"
                             id="inputtext"
-                            placeholder="new title" />
+                            placeholder="new title"
+                        />
                     </div>
                     <button onClick={clickfxn} className="btn btn-success">Save</button>
                 </div>
@@ -121,19 +122,22 @@ export const CheckEditor = ({ save_action, flip, oldval }) => {
                             type="text"
                             class="form-control"
                             id="inputtext"
-                            placeholder="new title" />
+                            placeholder="new title"
+                        />
                     </div>
 
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Value</label>
                     <div class="col-sm-8">
                         <input
                             onChange={(ev) => setcheckval(ev.target.value)}
                             type="text"
                             class="form-control"
                             id="inputtext"
-                            placeholder="new title" />
+                            placeholder="new title"
+
+                        />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -161,25 +165,27 @@ export const DropdownEditor = ({ save_action, flip, oldval }) => {
         <div className="card m-2">
             <div className="card-body">
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-8">
                         <input
                             onChange={(ev) => setformval(ev.target.value)}
                             type="text"
                             class="form-control"
                             id="inputtext"
-                            placeholder="new title" />
+                            placeholder="new title"
+                        />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Options</label>
                     <div class="col-sm-8">
                         <input
                             onChange={(ev) => setoptions(ev.target.value.split(","))}
                             type="text"
                             class="form-control"
                             id="inputtext"
-                            placeholder="enter option seprated by ',' eg : option1, option2, option3" />
+                            placeholder="enter option seprated by ',' eg : option1, option2, option3"
+                        />
                     </div>
                 </div>
                 <div class="form-group row">

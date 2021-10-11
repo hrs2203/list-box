@@ -12,7 +12,7 @@ import {
 } from "./IndividualElem.jsx";
 
 
-const ElemCreator = ({ elem, del_event, edit_event }) => {
+const ElemCreator = ({ elem, del_event, edit_event, move }) => {
     const [sw, setSw] = useState(true);
 
     const split = {
@@ -37,16 +37,32 @@ const ElemCreator = ({ elem, del_event, edit_event }) => {
                 {sw ? split[elem["type"]] : edit_table[elem["type"]]}
             </div>
             <div className="col-4">
-                <button className="row btn btn-primary m-2"
-                    onClick={() => setSw(false)} >
-                    edit
-                </button>
-                <button className="row btn btn-danger m-2"
-                    onClick={() => del_event(elem["id"])} >
-                    delete
-                </button>
+                {
+                    sw ? <div className="col">
+                        <div className="row">
+                            <button className="col btn btn-outline-success m-2"
+                                onClick={() => setSw(false)} >
+                                edit
+                            </button>
+                            <button className="col btn btn-outline-danger m-2"
+                                onClick={() => del_event(elem["id"])} >
+                                delete
+                            </button>
+                        </div>
+                        <div className="row">
+                            <button className="col btn btn-outline-primary m-2"
+                                onClick={() => move(-1, elem["id"])} >
+                                up
+                            </button>
+                            <button className="col btn btn-outline-primary m-2"
+                                onClick={() => move(1, elem["id"])} >
+                                down
+                            </button>
+                        </div>
+                    </div> : <div />
+                }
             </div>
-        </div>
+        </div >
     )
 
 }
@@ -83,10 +99,40 @@ export const HomePage = () => {
         setElem_list([])
     }
 
+    const move = (d, id) => {
+        let indx = -1;
+        for (let ind = 0; ind < elem_list.length; ind++) {
+            const element = elem_list[ind];
+            if (element["id"] === id){
+                indx = ind;
+                break
+            }
+        }
+        let elem_copy = elem_list.map(item =>item);
+        if ((d===-1) && (indx>0)){
+            const x = elem_copy[indx]
+            elem_copy[indx] = elem_copy[indx-1];
+            elem_copy[indx-1] = x;
+            setElem_list(elem_copy)
+        }
+        if ((d===1) && (indx<elem_copy.length-1)){
+            const x = elem_copy[indx]
+            elem_copy[indx] = elem_copy[indx+1];
+            elem_copy[indx+1] = x;
+            setElem_list(elem_copy)
+        }
+
+    }
+
     return (
         <div className="row">
             <div className="col-8 border p-3">
-                {elem_list.map(item => <ElemCreator elem={item} del_event={elem_removal} edit_event={elem_edit} />)}
+                {elem_list.map(item => <ElemCreator
+                    elem={item}
+                    del_event={elem_removal}
+                    edit_event={elem_edit}
+                    move={move}
+                />)}
                 <br /><br />
                 {
                     elem_list.length > 0 ?
